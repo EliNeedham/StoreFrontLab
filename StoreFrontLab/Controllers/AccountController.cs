@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using StoreFrontLab.DATA.EF;
 
 namespace StoreFrontLab.Controllers
 {
@@ -151,21 +152,32 @@ namespace StoreFrontLab.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (result.Succeeded) // 
                 {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+                    //if we land here, the new AspnetUser account has been created
+                    #region assign UserDetails during registration
+                    UserDetail newUserDeets = new UserDetail();
+                    newUserDeets.UserID = user.Id; //pulling id from aspnetusers tables
+                    newUserDeets.FirstName = model.FirstName; //model bc model is what is being pass in above in registermodelview
+                    newUserDeets.LastName = model.LastName;
+                    newUserDeets.FavoriteBike = model.FavoriteBike;
+
+                    //now save info to the database
+                    StoreFrontEntities1 db = new StoreFrontEntities1();
+                    db.UserDetails.Add(newUserDeets);
+                    db.SaveChanges();
+                    #endregion
+
+                    //Send the user to thelogin page to login with their new account
+
+                    return View("Login");
                 }
+
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
-
         //
         // GET: /Account/ConfirmEmail
         [HttpGet]

@@ -1,17 +1,39 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated) {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) {
+@using StoreFrontLab.DATA.EF
+
+@{  //durig homework - do I actually need this seeing as we are habing it dispaly their actual first name due to customization????
+    //Added to be able to Substring() Username below so full email address is not shown
+    int location = User.Identity.GetUserName().IndexOf("@");
+}
+@if (Request.IsAuthenticated)
+{
+    StoreFrontEntities1 db = new StoreFrontEntities1();
+    string userID = User.Identity.GetUserId();
+    UserDetail currentUser = db.UserDetails.Where(UrlData => UrlData.UserID == userID).FirstOrDefault();
+    string userFirstName = "Guest"; //default to something in case there is no match on user details
+    string favBike = "Old School";
+
+    //if we did get a match on UserDetails, use that info to populate the userFirstName and favBike variables
+    if (currentUser != null)
+    {
+        userFirstName = currentUser.FirstName;
+        favBike = currentUser.FavoriteBike;
+    }
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink($"Hi {userFirstName}! who doesn't like {favBike}?!", "Index", "Manage", null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
     }
 }
-else {
+else
+{
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>

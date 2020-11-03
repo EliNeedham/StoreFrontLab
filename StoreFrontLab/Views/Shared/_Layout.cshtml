@@ -1,49 +1,274 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title | Store Front</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/assets/img/favicon.ico">
+    <!-- CSS here -->
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*<link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+        <link rel="stylesheet" href="~/Content/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/Content/css/slicknav.css">
+        <link rel="stylesheet" href="~/Content/css/flaticon.css">
+        <link rel="stylesheet" href="~/Content/css/progressbar_barfiller.css">
+        <link rel="stylesheet" href="~/Content/css/gijgo.css">
+        <link rel="stylesheet" href="~/Content/css/animate.min.css">
+        <link rel="stylesheet" href="~/Content/css/animated-headline.css">
+        <link rel="stylesheet" href="~/Content/css/magnific-popup.css">
+        <link rel="stylesheet" href="~/Content/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="~/Content/css/themify-icons.css">
+        <link rel="stylesheet" href="~/Content/css/slick.css">
+        <link rel="stylesheet" href="~/Content/css/nice-select.css">
+        <link rel="stylesheet" href="~/Content/css/style.css">*@
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
-                    @if (Request.IsAuthenticated && User.IsInRole("Admin")) {
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+<body class="full-wrapper">
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="~/Content/assets/img/logo/loder.png" alt="">
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <!-- Preloader Start-->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area ">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <div class="header-left d-flex align-items-center">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="index.html"><img src="~/Content/assets/img/logo/logo.png" alt=""></a>
+                            </div>
+                            <!-- Main-menu -->
+                            <div class="main-menu  d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                        <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                                        <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                        <li>@Html.ActionLink("Bikes", "Index", "Bikes")</li>
+                                        @if (User.IsInRole("Admin") && Request.IsAuthenticated)
+                                        {
+                                            <li>
+                                                <a href="blog.html">Admin Features</a>
+                                                <ul class="submenu">
+                                                    @*<li><a href=#>Blog</a></li> do I want to use these?? 10.24
+                    <li><a href=#>Blog Details</a></li>*@
+                                                    <li><a href=#>Roles Admin</a></li>
+                                                    <li><a href=#>Product Details</a></li>
+                                                </ul>
+                                            </li>
+                                        }
 
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                                            <div class="dropdown-menu account-dropdown" style="background-color: lightgray;">
+                                                @Html.Partial("_LoginPartial")
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="header-right1 d-flex align-items-center">
+                            <!-- Social -->
+                            <div class="header-social d-none d-md-block">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                            <!-- Search Box -->
+                            <div class="search d-none d-md-block">
+                                <ul class="d-flex align-items-center">
+                                    <li class="mr-15">
+                                        <div class="nav-search search-switch">
+                                            <i class="ti-search"></i>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="card-stor">
+                                            <img src="~/Content/img/gallery/card.svg" alt="">
+                                            <span>0</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Mobile Menu -->
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+    <!-- header end -->
+
+    @RenderBody()
+
+    <footer>
+        <!-- Footer Start-->
+        <div class="footer-area footer-padding">
+            <div class="container-fluid ">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-8 col-sm-8">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-30">
+                                <!-- logo -->
+                                <h1 id="pedaloca">Pedaloca</h1>
+                                <div class="footer-logo mb-35">
+                                    @*<a href="index.html"><img src="~/Content/img/logo/logo2_footer.png" alt=""></a>*@
+
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p>We believe everyone should enjoy the freedom of cycling! Biking is a lifestyle and it is our goal to spread the sport with as many people as possible.</p>
+                                    </div>
+                                </div>
+                                <!-- social -->
+                                <div class="footer-social">
+                                    <a href="#"><i class="fab fa-twitter"></i></a>
+                                    <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick links</h4>
+                                <ul>
+                                    <li><a href="#">Image Licensin</a></li>
+                                    <li><a href="#">Style Guide</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Shop Category</h4>
+                                <ul>
+                                    <li><a href="#">Image Licensin</a></li>
+                                    <li><a href="#">Style Guide</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Partners</h4>
+                                <ul>
+                                    <li><a href="#">Image Licensin</a></li>
+                                    <li><a href="#">Style Guide</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Get in touch</h4>
+                                <ul>
+                                    <li><a href="#">(89) 982-278 356</a></li>
+                                    <li><a href="#">demo@colorlib.com</a></li>
+                                    <li><a href="#">67/A, Colorlib, Green road, NYC</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer-bottom area -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-border">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-xl-12 ">
+                            <div class="footer-copy-right text-center">
+                                <p>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End-->
+    </footer>
+    <!--? Search model Begin -->
+    <div class="search-model-box">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-btn">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Searching key.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search model end -->
+    <!-- Scroll Up -->
+    <div id="back-top">
+        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+    </div>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <!-- JS here -->
+    <!-- Jquery, Popper, Bootstrap -->
+    @*<script src="~/Content/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="~/Content/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="~/Content/js/popper.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <!-- Slick-slider , Owl-Carousel ,slick-nav -->
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/slick.min.js"></script>
+    <script src="~/Content/js/jquery.slicknav.min.js"></script>
+    <!-- One Page, Animated-HeadLin, Date Picker -->
+    <script src="~/Content/js/wow.min.js"></script>
+    <script src="~/Content/js/animated.headline.js"></script>
+    <script src="~/Content/js/jquery.magnific-popup.js"></script>
+    <script src="~/Content/js/gijgo.min.js"></script>
+    <!-- Nice-select, sticky,Progress -->
+    <script src="~/Content/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/js/jquery.sticky.js"></script>
+    <script src="~/Content/js/jquery.barfiller.js"></script>
+    <!-- counter , waypoint,Hover Direction -->
+    <script src="~/Content/js/jquery.counterup.min.js"></script>
+    <script src="~/Content/js/waypoints.min.js"></script>
+    <script src="~/Content/js/jquery.countdown.min.js"></script>
+    <script src="~/Content/js/hover-direction-snake.min.js"></script>
+    <!-- contact js -->
+    <script src="~/Content/js/contact.js"></script>
+    <script src="~/Content/js/jquery.form.js"></script>
+    <script src="~/Content/js/jquery.validate.min.js"></script>
+    <script src="~/Content/js/mail-script.js"></script>
+    <script src="~/Content/js/jquery.ajaxchimp.min.js"></script>
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="~/Content/js/plugins.js"></script>
+    <script src="~/Content/js/main.js"></script>*@
+
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

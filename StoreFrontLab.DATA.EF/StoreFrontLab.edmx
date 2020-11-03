@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StoreFrontModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BikeMakeID">
+          <Key>
+            <PropertyRef Name="BikeMakeID" />
+          </Key>
+          <Property Name="BikeMakeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manufacturer" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="20" />
+          <Property Name="State" Type="char" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="Bikes">
+          <Key>
+            <PropertyRef Name="BikeID" />
+          </Key>
+          <Property Name="BikeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BikeModel" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="BikeTypeID" Type="int" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="UnitsSold" Type="int" />
+          <Property Name="Year" Type="date" Nullable="false" />
+          <Property Name="BikeImage" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="TireID" Type="int" />
+          <Property Name="BikeStatusID" Type="int" />
+          <Property Name="BikeMakeID" Type="int" Nullable="false" />
+          <Property Name="IsSiteFeature" Type="bit" />
+        </EntityType>
+        <EntityType Name="BikeStatuses">
+          <Key>
+            <PropertyRef Name="BikeStatusID" />
+          </Key>
+          <Property Name="BikeStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BikeStatusName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Notes" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BikeType">
+          <Key>
+            <PropertyRef Name="BikeTypeID" />
+          </Key>
+          <Property Name="BikeTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BikeType" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TireType">
+          <Key>
+            <PropertyRef Name="TireID" />
+          </Key>
+          <Property Name="TireID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TireSize" Type="int" Nullable="false" />
+          <Property Name="Tubeless" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="FavoriteBike" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Bikes_BikeMakeID">
+          <End Role="BikeMakeID" Type="Self.BikeMakeID" Multiplicity="1" />
+          <End Role="Bikes" Type="Self.Bikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeMakeID">
+              <PropertyRef Name="BikeMakeID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="BikeMakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bikes_BikeStatuses">
+          <End Role="BikeStatuses" Type="Self.BikeStatuses" Multiplicity="0..1" />
+          <End Role="Bikes" Type="Self.Bikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeStatuses">
+              <PropertyRef Name="BikeStatusID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="BikeStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bikes_BikeType">
+          <End Role="BikeType" Type="Self.BikeType" Multiplicity="0..1" />
+          <End Role="Bikes" Type="Self.Bikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeType">
+              <PropertyRef Name="BikeTypeID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="BikeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bikes_TireType">
+          <End Role="TireType" Type="Self.TireType" Multiplicity="0..1" />
+          <End Role="Bikes" Type="Self.Bikes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TireType">
+              <PropertyRef Name="TireID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="TireID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreFrontModelStoreContainer">
+          <EntitySet Name="BikeMakeID" EntityType="Self.BikeMakeID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bikes" EntityType="Self.Bikes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BikeStatuses" EntityType="Self.BikeStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BikeType" EntityType="Self.BikeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TireType" EntityType="Self.TireType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bikes_BikeMakeID" Association="Self.FK_Bikes_BikeMakeID">
+            <End Role="BikeMakeID" EntitySet="BikeMakeID" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bikes_BikeStatuses" Association="Self.FK_Bikes_BikeStatuses">
+            <End Role="BikeStatuses" EntitySet="BikeStatuses" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bikes_BikeType" Association="Self.FK_Bikes_BikeType">
+            <End Role="BikeType" EntitySet="BikeType" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bikes_TireType" Association="Self.FK_Bikes_TireType">
+            <End Role="TireType" EntitySet="TireType" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoreFrontModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BikeMakeID">
+          <Key>
+            <PropertyRef Name="BikeMakeID1" />
+          </Key>
+          <Property Name="BikeMakeID1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manufacturer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_BikeMakeID" FromRole="BikeMakeID" ToRole="Bikes" />
+        </EntityType>
+        <EntityType Name="Bike">
+          <Key>
+            <PropertyRef Name="BikeID" />
+          </Key>
+          <Property Name="BikeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BikeModel" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BikeTypeID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UnitsSold" Type="Int32" />
+          <Property Name="Year" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BikeImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TireID" Type="Int32" />
+          <Property Name="BikeStatusID" Type="Int32" />
+          <Property Name="BikeMakeID" Type="Int32" Nullable="false" />
+          <Property Name="IsSiteFeature" Type="Boolean" />
+          <NavigationProperty Name="BikeMakeID1" Relationship="Self.FK_Bikes_BikeMakeID" FromRole="Bikes" ToRole="BikeMakeID" />
+          <NavigationProperty Name="BikeStatus" Relationship="Self.FK_Bikes_BikeStatuses" FromRole="Bikes" ToRole="BikeStatuses" />
+          <NavigationProperty Name="BikeType" Relationship="Self.FK_Bikes_BikeType" FromRole="Bikes" ToRole="BikeType" />
+          <NavigationProperty Name="TireType" Relationship="Self.FK_Bikes_TireType" FromRole="Bikes" ToRole="TireType" />
+        </EntityType>
+        <EntityType Name="BikeStatus">
+          <Key>
+            <PropertyRef Name="BikeStatusID" />
+          </Key>
+          <Property Name="BikeStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BikeStatusName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_BikeStatuses" FromRole="BikeStatuses" ToRole="Bikes" />
+        </EntityType>
+        <EntityType Name="BikeType">
+          <Key>
+            <PropertyRef Name="BikeTypeID" />
+          </Key>
+          <Property Name="BikeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BikeType1" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_BikeType" FromRole="BikeType" ToRole="Bikes" />
+        </EntityType>
+        <EntityType Name="TireType">
+          <Key>
+            <PropertyRef Name="TireID" />
+          </Key>
+          <Property Name="TireID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TireSize" Type="Int32" Nullable="false" />
+          <Property Name="Tubeless" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bikes" Relationship="Self.FK_Bikes_TireType" FromRole="TireType" ToRole="Bikes" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FavoriteBike" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Bikes_BikeMakeID">
+          <End Role="BikeMakeID" Type="Self.BikeMakeID" Multiplicity="1" />
+          <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeMakeID">
+              <PropertyRef Name="BikeMakeID1" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="BikeMakeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bikes_BikeStatuses">
+          <End Role="BikeStatuses" Type="Self.BikeStatus" Multiplicity="0..1" />
+          <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeStatuses">
+              <PropertyRef Name="BikeStatusID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="BikeStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bikes_BikeType">
+          <End Role="BikeType" Type="Self.BikeType" Multiplicity="0..1" />
+          <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BikeType">
+              <PropertyRef Name="BikeTypeID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="BikeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bikes_TireType">
+          <End Role="TireType" Type="Self.TireType" Multiplicity="0..1" />
+          <End Role="Bikes" Type="Self.Bike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TireType">
+              <PropertyRef Name="TireID" />
+            </Principal>
+            <Dependent Role="Bikes">
+              <PropertyRef Name="TireID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreFrontEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BikeMakeIDs" EntityType="Self.BikeMakeID" />
+          <EntitySet Name="Bikes" EntityType="Self.Bike" />
+          <EntitySet Name="BikeStatuses" EntityType="Self.BikeStatus" />
+          <EntitySet Name="BikeTypes" EntityType="Self.BikeType" />
+          <EntitySet Name="TireTypes" EntityType="Self.TireType" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+          <AssociationSet Name="FK_Bikes_BikeMakeID" Association="Self.FK_Bikes_BikeMakeID">
+            <End Role="BikeMakeID" EntitySet="BikeMakeIDs" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bikes_BikeStatuses" Association="Self.FK_Bikes_BikeStatuses">
+            <End Role="BikeStatuses" EntitySet="BikeStatuses" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bikes_BikeType" Association="Self.FK_Bikes_BikeType">
+            <End Role="BikeType" EntitySet="BikeTypes" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bikes_TireType" Association="Self.FK_Bikes_TireType">
+            <End Role="TireType" EntitySet="TireTypes" />
+            <End Role="Bikes" EntitySet="Bikes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StoreFrontModelStoreContainer" CdmEntityContainer="StoreFrontEntities1">
+          <EntitySetMapping Name="BikeMakeIDs">
+            <EntityTypeMapping TypeName="StoreFrontModel.BikeMakeID">
+              <MappingFragment StoreEntitySet="BikeMakeID">
+                <ScalarProperty Name="BikeMakeID1" ColumnName="BikeMakeID" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bikes">
+            <EntityTypeMapping TypeName="StoreFrontModel.Bike">
+              <MappingFragment StoreEntitySet="Bikes">
+                <ScalarProperty Name="BikeID" ColumnName="BikeID" />
+                <ScalarProperty Name="BikeModel" ColumnName="BikeModel" />
+                <ScalarProperty Name="BikeTypeID" ColumnName="BikeTypeID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="UnitsSold" ColumnName="UnitsSold" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="BikeImage" ColumnName="BikeImage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TireID" ColumnName="TireID" />
+                <ScalarProperty Name="BikeStatusID" ColumnName="BikeStatusID" />
+                <ScalarProperty Name="BikeMakeID" ColumnName="BikeMakeID" />
+                <ScalarProperty Name="IsSiteFeature" ColumnName="IsSiteFeature" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BikeStatuses">
+            <EntityTypeMapping TypeName="StoreFrontModel.BikeStatus">
+              <MappingFragment StoreEntitySet="BikeStatuses">
+                <ScalarProperty Name="BikeStatusID" ColumnName="BikeStatusID" />
+                <ScalarProperty Name="BikeStatusName" ColumnName="BikeStatusName" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BikeTypes">
+            <EntityTypeMapping TypeName="StoreFrontModel.BikeType">
+              <MappingFragment StoreEntitySet="BikeType">
+                <ScalarProperty Name="BikeTypeID" ColumnName="BikeTypeID" />
+                <ScalarProperty Name="BikeType1" ColumnName="BikeType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TireTypes">
+            <EntityTypeMapping TypeName="StoreFrontModel.TireType">
+              <MappingFragment StoreEntitySet="TireType">
+                <ScalarProperty Name="TireID" ColumnName="TireID" />
+                <ScalarProperty Name="TireSize" ColumnName="TireSize" />
+                <ScalarProperty Name="Tubeless" ColumnName="Tubeless" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="StoreFrontModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FavoriteBike" ColumnName="FavoriteBike" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

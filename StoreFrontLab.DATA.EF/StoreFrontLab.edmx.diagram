@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bc5c88bafd4e4520892bc3ade5c801d4" Name="Diagram1">
+        <EntityTypeShape EntityType="StoreFrontModel.BikeMakeID" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.Bike" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.BikeStatus" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.BikeType" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.TireType" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.UserDetail" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="StoreFrontModel.FK_Bikes_BikeMakeID" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Bikes_BikeStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Bikes_BikeType" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreFrontModel.FK_Bikes_TireType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

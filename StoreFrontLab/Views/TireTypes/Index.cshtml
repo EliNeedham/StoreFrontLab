@@ -1,0 +1,39 @@
+﻿@model IEnumerable<StoreFrontLab.DATA.EF.TireType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TireSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tubeless)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TireSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tubeless)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TireID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TireID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TireID })
+        </td>
+    </tr>
+}
+
+</table>

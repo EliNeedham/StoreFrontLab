@@ -151,7 +151,7 @@ body {
     font-family: "Poppins",sans-serif;
     font-weight: normal;
     font-style: normal;
-    font-size: 16px
+    font-size: 18px
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -159,8 +159,8 @@ h1, h2, h3, h4, h5, h6 {
     color: #140C40;
     margin-top: 0px;
     font-style: normal;
-    font-weight: 500;
-    text-transform: normal
+    font-weight: 600;
+    /*text-transform: normal*/
 }
 
 p {

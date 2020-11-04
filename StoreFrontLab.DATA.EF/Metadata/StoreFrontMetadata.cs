@@ -11,7 +11,8 @@ namespace StoreFrontLab.DATA.EF//.Metadata commentthis out
     #region Bike Metadata
     public class BikeMetadata
     {
-        //public int BikeID { get; set; }
+        [Display(Name = "Bike ID")]
+        public int BikeID { get; set; }
 
         [Required(ErrorMessage = " * Bike Model is Required *")]
         [StringLength(50, ErrorMessage = "* Cannot exceed 50 characters *")]
@@ -43,8 +44,9 @@ namespace StoreFrontLab.DATA.EF//.Metadata commentthis out
         [DisplayFormat(NullDisplayText = "Not Available")]
         public string Description { get; set; }
 
-        //[DisplayFormat(NullDisplayText = "Not available")]
-        //public Nullable<int> TireID { get; set; }
+        [Display(Name = "Tire Type")]
+        [DisplayFormat(NullDisplayText = "Not available")]
+        public Nullable<int> TireID { get; set; }
 
         [DisplayFormat(NullDisplayText = "Not available")]
         [Display(Name = "Bike Status")]

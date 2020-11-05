@@ -56,6 +56,7 @@ namespace StoreFrontLab
                "~/Content/css/themify-icons.css",
                "~/Content/css/slick.css",
                "~/Content/css/nice-select.css",
+               "~/Content/PagedList.css",
                "~/Content/css/style.css"
                      ));
 

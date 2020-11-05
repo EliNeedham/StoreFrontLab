@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using StoreFrontLab.DATA.EF;
 using StoreFrontLab.Utilities;
+using PagedList;
+using PagedList.Mvc;
 
 namespace StoreFrontLab.Controllers
 {
@@ -17,10 +19,32 @@ namespace StoreFrontLab.Controllers
         private StoreFrontEntities1 db = new StoreFrontEntities1();
 
         // GET: Bikes
-        public ActionResult Index()
+        public ActionResult Index(string searchFilter, string currentFilter, int page = 1)
         {
-            var bikes = db.Bikes.Include(b => b.BikeMakeID1).Include(b => b.BikeStatus).Include(b => b.BikeType).Include(b => b.TireType);
-            return View(bikes.ToList());
+            int pageSize = 5;
+            var bikes = db.Bikes.OrderBy(b => b.BikeModel).ToList();
+
+            if (searchFilter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchFilter = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchFilter;
+
+            if (!String.IsNullOrEmpty(searchFilter))
+            {
+                bikes = (
+                    from b in bikes
+                    where b.BikeModel.ToLower().Contains(searchFilter.ToLower())
+                    select b
+                    ).ToList();
+
+                ViewBag.SearchString = searchFilter;
+            }
+            return View(bikes.ToPagedList(page, pageSize));
         }
 
         // GET: Bikes/Details/5
@@ -39,6 +63,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // GET: Bikes/Create
+        [Authorize(Roles = "Admin, Support")]
         public ActionResult Create()
         {
             //this is making a list of things, and says the info that is being sent back to controller is bikemakeid and info sent to user is manufacturer column
@@ -55,6 +80,7 @@ namespace StoreFrontLab.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Support")]
         public ActionResult Create([Bind(Include = "BikeID,BikeModel,BikeTypeID,Price,UnitsSold,Year,BikeImage,Description,TireID,BikeStatusID,BikeMakeID,IsSiteFeature")] Bike bike, HttpPostedFileBase bikeImage, string BikeMake)
         {
 
@@ -130,6 +156,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // GET: Bikes/Edit/5
+        [Authorize(Roles = "Admin, Support")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -153,6 +180,7 @@ namespace StoreFrontLab.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Support")]
         public ActionResult Edit([Bind(Include = "BikeID,BikeModel,BikeTypeID,Price,UnitsSold,Year,BikeImage,Description,TireID,BikeStatusID,BikeMakeID,IsSiteFeature")] Bike bike, HttpPostedFileBase bikeImage)
         {
             if (ModelState.IsValid)
@@ -206,6 +234,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // GET: Bikes/Delete/5
+        [Authorize(Roles = "Admin, Support")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -221,6 +250,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // POST: Bikes/Delete/5
+        [Authorize(Roles = "Admin, Support")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

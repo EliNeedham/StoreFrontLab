@@ -1,4 +1,8 @@
-﻿@model IEnumerable<StoreFrontLab.DATA.EF.Bike>
+﻿@*@model IEnumerable<StoreFrontLab.DATA.EF.Bike>*@
+
+
+@model PagedList.IPagedList<StoreFrontLab.DATA.EF.Bike>
+@using PagedList.Mvc
 
 @{
     ViewBag.Title = "Index";
@@ -6,89 +10,107 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+@using (Html.BeginForm("Index", "Bikes", FormMethod.Get))
+{
+    <p>
+        @*                          name attrbt       cast - this puts search term back into search box each time you move to a new page   *@
+        Find by Bike Model: @Html.TextBox("SearchFilter", ViewBag.SearchString as string)
+        <input type="submit" value="search" />
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BikeModel)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BikeModel)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UnitsSold)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().UnitsSold)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Year)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Year)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BikeImage)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BikeImage)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsSiteFeature)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().IsSiteFeature)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BikeMakeID1.Manufacturer)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BikeMakeID1.Manufacturer)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BikeStatus.BikeStatusName)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BikeStatus.BikeStatusName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BikeType.BikeType1)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().BikeType.BikeType1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TireType.Tubeless)
+            @Html.DisplayNameFor(model => model.FirstOrDefault().TireType.Tubeless)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BikeModel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UnitsSold)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @*@Html.DisplayFor(modelItem => item.BikeImage)*@
-            <img src="~/Content/imgstore/bikes/t_@item.BikeImage" alt="Bike Image" title="@item.BikeModel" />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsSiteFeature)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BikeMakeID1.Manufacturer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BikeStatus.BikeStatusName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BikeType.BikeType1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TireType.Tubeless)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BikeID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BikeID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BikeID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitsSold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.BikeImage)*@
+                <img src="~/Content/imgstore/bikes/t_@item.BikeImage" alt="Bike Image" title="@item.BikeModel" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSiteFeature)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeMakeID1.Manufacturer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeStatus.BikeStatusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeType.BikeType1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TireType.Tubeless)
+            </td>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.BikeID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.BikeID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.BikeID })
+                </td>
+            }
+        </tr>
+    }
 
 </table>
+Page @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

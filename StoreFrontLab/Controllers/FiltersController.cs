@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using PagedList;
+using PagedList.Mvc;
 
 
 namespace StoreFrontLab.Controllers
@@ -16,12 +17,28 @@ namespace StoreFrontLab.Controllers
     {
 
         //private StoreFrontLabEntities1 db = new StoreFrontLabEntities1();
+        private StoreFrontEntities1 db = new StoreFrontEntities1();
 
 
         // GET: Filters
-        public ActionResult Index()
+        public ViewResult Index(string searchFilter, int page = 1)
         {
-            return View();
+            int pageSize = 5;
+            var bikes = db.Bikes.OrderBy(b => b.BikeModel).ToList();
+
+            if (!String.IsNullOrEmpty(searchFilter))
+            {
+                bikes = (
+                    from b in bikes
+                    where b.BikeModel.ToLower().Contains(searchFilter.ToLower())
+                    select b
+                    ).ToList();
+
+                ViewBag.SearchString = searchFilter;
+            }
+            return View(bikes.ToPagedList(page, pageSize));
         }
+
+        //public ActionResult Clients
     }
 }

@@ -171,7 +171,7 @@ namespace StoreFrontLab.Controllers
             ViewBag.BikeMakeID = new SelectList(db.BikeMakeIDs, "BikeMakeID1", "Manufacturer", bike.BikeMakeID);
             ViewBag.BikeStatusID = new SelectList(db.BikeStatuses, "BikeStatusID", "BikeStatusName", bike.BikeStatusID);
             ViewBag.BikeTypeID = new SelectList(db.BikeTypes, "BikeTypeID", "BikeType1", bike.BikeTypeID);
-            ViewBag.TireID = new SelectList(db.TireTypes.Distinct(), "TireID", "TireSize", bike.TireID);
+            ViewBag.TireID = new SelectList(db.TireTypes, "TireID", "TireTypeSummary", bike.TireID);
             return View(bike);
         }
 

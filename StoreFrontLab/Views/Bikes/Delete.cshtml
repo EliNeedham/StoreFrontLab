@@ -48,7 +48,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.BikeImage)
+            @*@Html.DisplayFor(model => model.BikeImage)*@
+            <img src="~/Content/imgstore/bikes/@Model.BikeImage" alt="Bike Image" title="@Model.BikeModel" />
         </dd>
 
         <dt>

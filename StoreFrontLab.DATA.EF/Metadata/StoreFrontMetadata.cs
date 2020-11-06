@@ -113,8 +113,12 @@ namespace StoreFrontLab.DATA.EF//.Metadata commentthis out
 
     [MetadataType(typeof(TireTypeMetadata))]
     public partial class TireType // partial classes are for creating custom properties - there are NOT DB fields
-    {
 
+    //we are creating a custom property here to solve the size and tubeless dropdown menu issue - uses info from columns stored in the database - we are doing it in code instead of changing db is bc we are combining info from different columns in the db - db normalization breaks down into smallest piece of info Trim() - removes any extra whitespace
+    {
+        public string TireTypeSummary
+        { get { return String.Format("{0}\" - {1}", TireSize, (Tubeless.ToLower().Trim() == "yes" ? "Tubeless" : "Not Tubeless")); }
+        }
     }
     #endregion
 

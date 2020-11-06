@@ -178,7 +178,6 @@
     <Compile Include="Controllers\BikesController.cs" />
     <Compile Include="Controllers\BikeStatusController.cs" />
     <Compile Include="Controllers\BikeTypesController.cs" />
-    <Compile Include="Controllers\FiltersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
@@ -485,7 +484,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

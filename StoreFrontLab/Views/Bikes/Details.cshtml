@@ -1,8 +1,5 @@
 ﻿@model StoreFrontLab.DATA.EF.Bike
 
-@if (User.IsInRole("Admin"))
-{
-
     @{
         ViewBag.Title = "Details";
     }
@@ -50,8 +47,8 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.BikeImage)
-                @*<img src="~/Content/imgstore/bikes/t_@item.BikeImage" alt="Bike Image" title="@item.BikeModel" />*@
+                @* we had item before because this image was inside of a foreach loop, in a view when you declare it's "m" but when you refer back to item passed to view specific instance is "M" *@
+                <img src="~/Content/imgstore/bikes/@Model.BikeImage" alt="Bike Image" title="@Model.BikeModel" />
             </dd>
 
             <dt>
@@ -122,4 +119,3 @@
         @Html.ActionLink("Back to List", "Index")
     </p>
 
-}

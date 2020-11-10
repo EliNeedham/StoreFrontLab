@@ -11,6 +11,7 @@ using StoreFrontLab.DATA.EF;
 using StoreFrontLab.Utilities;
 using PagedList;
 using PagedList.Mvc;
+using StoreFrontLab.Models;
 
 namespace StoreFrontLab.Controllers
 {
@@ -61,6 +62,75 @@ namespace StoreFrontLab.Controllers
             }
             return View(bike);
         }
+
+        #region Custom Add-to-Cart functionality (called from the Details View)
+        public ActionResult AddToCart(int qty, int bikeID)
+        {
+            //going to use collection type called dictionary to store items into the cart
+            //Dictionaries store info as key, value pairs. 
+            //you have to declare data type for the key and the value so that is what int and cartitemmodelview are
+            Dictionary<int, ShoppingCartViewModel> shoppingCart = null;
+
+            //want to see if session variable shopping cart has been created
+            //check if session var called cart already exists, if it does, we will use it to populate the local collection of shopping cart items we called shoppingCart
+            if (Session["cart"] != null)
+            //if session at the index of "cart"
+            {
+                //session variable already exists and we will put items from it into our Dictionary called shoppingCart (local list of shopping cart items)
+                //have to unbox the info in the cart index of the session into a dictionary where the key is an int and the value is cartitemviewmodel
+                shoppingCart = (Dictionary<int, ShoppingCartViewModel>)Session["cart"];
+                //when we UNBOX an object stored in Session to its smaller more specific type we are using explicit casting
+
+                //session existed for us already - when we throw things in there it's getting wrapped up so when we unwrap it it will be in the same format that it was thrown in as - just take it out of the box
+
+            }
+            else
+            {
+                //if session cart doesn't xist yet, we need to instatntiate it (aka NEW IT UP)
+                shoppingCart = new Dictionary<int, ShoppingCartViewModel>();
+                //called on constructor for dictionary
+            }
+            // after the if else above we have a local version of the shopping cart list that is ready to have items added to it. 
+
+            //find the product referenced by the ID that was passed to this method
+            Bike product = db.Bikes.Where(b => b.BikeID == bikeID).FirstOrDefault();
+            //first or default makes sure you don't end up with null value
+            if (product == null)
+            {
+                //if bad id, kick them back to some page to try again or you could throw an error. 
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //if the book IS valid, add the line-item to the cart
+                ShoppingCartViewModel item = new ShoppingCartViewModel(qty, product);
+                //what happens if this item has an instance of this item already in the cart? don't want two objects referring to same thingjust want to increase number of that same object, will have to do if checks
+                //put the item in the local cart but IF we already have that product as a cart item, then we will just update the quantity. 
+                //This is why Dictionary is a great choice for the shopping Cart collection
+                //store things by key - normally an id that represents the value - if you're looking at things from db tables the key will be the primary key - the value is the whole object. so we can look for things by key, it is very important that key is disctinct
+                if (shoppingCart.ContainsKey(product.BikeID))
+                //is this particular book in our shopping cart?
+                {
+                    shoppingCart[product.BikeID].Qty += qty;
+                }
+                else
+                {
+                    //if shopping cart doesn't already have that id
+                    shoppingCart.Add(product.BikeID, item);
+                    //product.BookID is the key, item is the value
+                }
+
+                //Now update the Session version of Shopping Cart so we can maintain the info between request/response cycles
+                Session["cart"] = shoppingCart; //implicit casting -> boxing
+                //smaller container into a bigger container (Object is the bigger container)
+                // we need to let user know that we added their itemt o cart
+                Session["confirm"] = $"'{product.BikeModel}' (Quantity: {qty}) added to cart";
+            }
+
+            //send user to a view that shows their cart items
+            return RedirectToAction("Index", "ShoppingCart");
+        }
+        #endregion
 
         // GET: Bikes/Create
         [Authorize(Roles = "Admin, Support")]

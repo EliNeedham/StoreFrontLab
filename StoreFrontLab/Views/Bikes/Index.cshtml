@@ -66,51 +66,54 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BikeModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitsSold)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.BikeImage)*@
-                <img src="~/Content/imgstore/bikes/t_@item.BikeImage" alt="Bike Image" title="@item.BikeModel" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSiteFeature)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BikeMakeID1.Manufacturer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BikeStatus.BikeStatusName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BikeType.BikeType1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TireType.Tubeless)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitsSold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.BikeImage)*@
+            <img src="~/Content/imgstore/bikes/t_@item.BikeImage" alt="Bike Image" title="@item.BikeModel" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSiteFeature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeMakeID1.Manufacturer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeStatus.BikeStatusName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeType.BikeType1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TireType.Tubeless)
+        </td>
 
-            @*@if (User.IsInRole("Admin"))*@
-            @*{*@
+        @if (User.IsInRole("Admin"))
+        {
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BikeID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.BikeID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.BikeID })
+                @Html.ActionLink("Delete", "Delete", new { id = item.BikeID }) |
             </td>
-            @*}*@
-        </tr>
+        }
+
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.BikeID })
+        </td>
+    </tr>
     }
 
 </table>

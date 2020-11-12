@@ -1,121 +1,126 @@
 ﻿@model StoreFrontLab.DATA.EF.Bike
 
-    @{
-        ViewBag.Title = "Details";
-    }
+@{
+    ViewBag.Title = "Details";
+}
 
-    <h2>Details</h2>
+<h2>Details</h2>
 
-    <div>
-        <h4>Bike</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.BikeModel)
-            </dt>
+<div>
+    <h4>Bike</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeModel)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BikeModel)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.BikeModel)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Price)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.UnitsSold)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.UnitsSold)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.UnitsSold)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.UnitsSold)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Year)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Year)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BikeImage)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeImage)
+        </dt>
 
-            <dd>
-                @* we had item before because this image was inside of a foreach loop, in a view when you declare it's "m" but when you refer back to item passed to view specific instance is "M" *@
-                <img src="~/Content/imgstore/bikes/@Model.BikeImage" alt="Bike Image" title="@Model.BikeModel" />
-            </dd>
+        <dd>
+            @* we had item before because this image was inside of a foreach loop, in a view when you declare it's "m" but when you refer back to item passed to view specific instance is "M" *@
+            <img src="~/Content/imgstore/bikes/@Model.BikeImage" alt="Bike Image" title="@Model.BikeModel" />
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.IsSiteFeature)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSiteFeature)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.IsSiteFeature)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.IsSiteFeature)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BikeMakeID1.Manufacturer)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeMakeID1.Manufacturer)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BikeMakeID1.Manufacturer)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.BikeMakeID1.Manufacturer)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BikeStatus.BikeStatusName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeStatus.BikeStatusName)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BikeStatus.BikeStatusName)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.BikeStatus.BikeStatusName)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.BikeType.BikeType1)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeType.BikeType1)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.BikeType.BikeType1)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.BikeType.BikeType1)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TireType.Tubeless)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.TireType.Tubeless)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TireType.Tubeless)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.TireType.Tubeless)
+        </dd>
 
-        </dl>
-        <p>
-            @* Html.BeginFrom("action- where the data is going", "controller", route values, Form method, html attributes)  *@
-            @using (Html.BeginForm("AddToCart", "Bikes", new { @BikeID = Model.BikeID }, FormMethod.Post, new { @class = "text-center" }))
-            {
-                @Html.HiddenFor(x => x.BikeID)
-                //hiddenFor - when you need to send data to controller but don't want user to see the data that is being passed to the controller - captures ID when object is passed to view - stores it -
-                //if you want data to persist between request and response cycles it has to have somewhere to go - to be stored and keep for the next request and response cycle.
-                <span class="label">Quantity:</span>
-                @Html.TextBox("Qty", 1, new { @class = "form-control", @style = "max-width: 50px; display:inline;" })
-                <input type="submit" value="Add to Cart" class="center-btn btn-primary" name="qty" />
-            }
+    </dl>
+    <p>
+        @* Html.BeginFrom("action- where the data is going", "controller", route values, Form method, html attributes)  *@
+        @using (Html.BeginForm("AddToCart", "Bikes", new { @BikeID = Model.BikeID }, FormMethod.Post, new { @class = "text-center" }))
+        {
+            @Html.HiddenFor(x => x.BikeID)
+            //hiddenFor - when you need to send data to controller but don't want user to see the data that is being passed to the controller - captures ID when object is passed to view - stores it -
+            //if you want data to persist between request and response cycles it has to have somewhere to go - to be stored and keep for the next request and response cycle.
+            <span class="label">Quantity:</span>
+            @Html.TextBox("Qty", 1, new { @class = "form-control", @style = "max-width: 50px; display:inline;" })
+            <input type="submit" value="Add to Cart" class="center-btn btn-primary" name="qty" />
+        }
 
-        </p>
-    </div>
+    </p>
+</div>
+@if (User.IsInRole("Admin"))
+{
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.BikeID }) |
-        @Html.ActionLink("Back to List", "Index")
     </p>
+}
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
 

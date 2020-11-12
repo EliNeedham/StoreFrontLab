@@ -36,6 +36,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // GET: BikeMakeIDs/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +60,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // GET: BikeMakeIDs/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +80,7 @@ namespace StoreFrontLab.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "BikeMakeID1,Manufacturer,City,State")] BikeMakeID bikeMakeID)
         {
             if (ModelState.IsValid)
@@ -90,6 +93,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // GET: BikeMakeIDs/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -105,6 +109,7 @@ namespace StoreFrontLab.Controllers
         }
 
         // POST: BikeMakeIDs/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

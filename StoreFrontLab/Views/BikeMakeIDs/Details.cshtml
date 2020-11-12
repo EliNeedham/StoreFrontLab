@@ -36,7 +36,12 @@
 
     </dl>
 </div>
+@if (User.IsInRole("Admin"))
+{
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.BikeMakeID1 }) |
+</p>
+}
+<p>
     @Html.ActionLink("Back to List", "Index")
 </p>

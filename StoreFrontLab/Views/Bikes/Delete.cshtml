@@ -4,6 +4,10 @@
     ViewBag.Title = "Delete";
 }
 
+@if (ViewBag.CustomError != null)
+{
+    <h1>@ViewBag.CustomError</h1>
+}
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this bike?</h3>
@@ -102,7 +106,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

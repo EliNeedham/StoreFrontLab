@@ -325,10 +325,21 @@ namespace StoreFrontLab.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Bike bike = db.Bikes.Find(id);
-            db.Bikes.Remove(bike);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Bike bike = db.Bikes.Find(id);
+                db.Bikes.Remove(bike);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch(CustomError ex)
+            {
+                ViewBag.CustomError = ex.Message;
+                Bike bike = db.Bikes.Find(id);
+                return View(bike);
+            }
+
+
         }
 
         protected override void Dispose(bool disposing)
@@ -338,6 +349,15 @@ namespace StoreFrontLab.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public class CustomError : Exception
+        {
+            private readonly string _message = "Whoops! Something went wrong....";
+            public override string Message
+            {
+                get { return _message; }
+            }
         }
     }
 }

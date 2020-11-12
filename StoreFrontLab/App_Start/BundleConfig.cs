@@ -12,7 +12,7 @@ namespace StoreFrontLab
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 //"~/Content/js/vendor/modernizr-3.5.0.min.js",
                 "~/Content/js/vendor/jquery-1.12.4.min.js",
-                //"~/Content/js/popper.min.js",
+                "~/Content/js/popper.min.js",
                 "~/Content/js/bootstrap.min.js",
                 "~/Content/js/owl.carousel.min.js",
                 "~/Content/js/slick.min.js",

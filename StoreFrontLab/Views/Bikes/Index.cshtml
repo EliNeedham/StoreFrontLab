@@ -6,7 +6,8 @@
 
 @{
     ViewBag.Title = "Index";
-}
+    }
+
 
 <h2>Index</h2>
 
@@ -103,11 +104,11 @@
 
             @*@if (User.IsInRole("Admin"))*@
             @*{*@
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.BikeID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.BikeID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.BikeID })
-                </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BikeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BikeID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BikeID })
+            </td>
             @*}*@
         </tr>
     }

@@ -48,6 +48,38 @@ namespace StoreFrontLab.Controllers
             return View(bikes.ToPagedList(page, pageSize));
         }
 
+        public ActionResult MountainBikes()
+        {
+
+            var mtb = db.Bikes.Where(b => b.BikeTypeID == 10).ToList();
+
+            return View(mtb);
+        }
+
+        public ActionResult EBikes()
+        {
+
+            var ebike = db.Bikes.Where(b => b.BikeTypeID == 9).ToList();
+
+            return View(ebike);
+        }
+
+        public ActionResult RoadBikes()
+        {
+
+            var rbike = db.Bikes.Where(b => b.BikeTypeID == 2).ToList();
+
+            return View(rbike);
+        }
+
+        public ActionResult HybridBikes()
+        {
+
+            var hbike = db.Bikes.Where(b => b.BikeTypeID == 3).ToList();
+
+            return View(hbike);
+        }
+
         // GET: Bikes/Details/5
         public ActionResult Details(int? id)
         {
@@ -210,8 +242,9 @@ namespace StoreFrontLab.Controllers
                         }
                     }
 
-                    bike.BikeImage = file;
+
                 }
+                bike.BikeImage = file;
                 #endregion
                 db.Bikes.Add(bike);
                 db.SaveChanges();

@@ -484,6 +484,10 @@
     <Content Include="Views\BikeTypes\Edit.cshtml" />
     <Content Include="Views\BikeTypes\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Bikes\MountainBikes.cshtml" />
+    <Content Include="Views\Bikes\EBikes.cshtml" />
+    <Content Include="Views\Bikes\RoadBikes.cshtml" />
+    <Content Include="Views\Bikes\HybridBikes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<StoreFrontLab.DATA.EF.Bike>
+
+@{
+    ViewBag.Title = "Hybrid Bikes";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+<div class="product-gallery row">
+    @foreach (var item in Model)
+    {
+
+        <div class="single-product col-md-5" id="bikeview">
+            <div class="product-image">
+                <img src="~/Content/imgstore/bikes/@item.BikeImage" alt="Bike Image" title="@item.BikeModel" />
+            </div>
+            <div>
+                <h3>@item.BikeModel</h3>
+                <p>@item.Description</p>
+                <p>
+                    @using (Html.BeginForm("AddToCart", "Bikes", new { @BikeID = item.BikeID }, FormMethod.Post, new { @class = "text-center" }))
+                    {
+                        @Html.Hidden("bikeId", item.BikeID);
+                        //hiddenFor - when you need to send data to controller but don't want user to see the data that is being passed to the controller - captures ID when object is passed to view - stores it -
+                        //if you want data to persist between request and response cycles it has to have somewhere to go - to be stored and keep for the next request and response cycle.
+                        <span class="label">Quantity:</span>
+                        @Html.TextBox("Qty", 1, new { @class = "form-control", @style = "max-width: 50px; display:inline;" })
+                        <input type="submit" value="Add to Cart" class="center-btn btn-primary" name="qty" />
+                    }
+                </p>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+
+

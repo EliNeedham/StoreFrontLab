@@ -93,6 +93,7 @@
         <label class="control-label col-md-2" for="BikeMake">Manufacturer</label>
         <input type="text" name="BikeMake" class="form-control col-md-10" />
     </div>
+    @* TODO figure out if not having the drop down is creating new manufacturers or recognizing the text as an existing manufacturer - if not fix it.  *@
 
     <div class="form-group">
         @Html.LabelFor(model => model.IsSiteFeature, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -97,7 +97,7 @@
                                 <span>E Bikes</span>
                             </div>
                             <div class="favorit-items">
-                                <a href="shop.html" class="btn">Shop Now</a>
+                                <a href="@Url.Action("EBikes", "Bikes")" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -107,10 +107,11 @@
                         <div class="popular-img">
                             <img src="~/Content/img/gallery/downhill-forest.jpg" alt="">
                             <div class="img-cap">
-                                <span>Downhill Bikes</span>
+                                <span>Mountain Bikes</span>
                             </div>
                             <div class="favorit-items">
-                                <a href="/Bikes" class="btn">Shop Now</a>
+                                @* it goes action, which is a method that returns a view which is the view and then the name of the controller *@
+                                <a href="@Url.Action("MountainBikes", "Bikes")" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -123,7 +124,7 @@
                                 <span>Road Bikes</span>
                             </div>
                             <div class="favorit-items">
-                                <a href="shop.html" class="btn">Shop Now</a>
+                                <a href="@Url.Action("RoadBikes", "Bikes")" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
@@ -136,7 +137,7 @@
                                 <span>Hybrids</span>
                             </div>
                             <div class="favorit-items">
-                                <a href="shop.html" class="btn">Shop Now</a>
+                                <a href="@Url.Action("HybridBikes", "Bikes")" class="btn">Shop Now</a>
                             </div>
                         </div>
                     </div>
